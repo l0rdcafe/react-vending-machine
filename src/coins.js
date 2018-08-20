@@ -29,7 +29,7 @@ const Coins = ({ handleInput }) => (
     </Circle>
     <Circle
       onClick={() => handleInput(0.5)}
-      style={{ ...coinStyles, height: "32px", width: "26px", border: "4px solid #aa7" }}
+      style={{ ...coinStyles, height: "32px", width: "26px", fontSize: "11px", border: "4px solid #aa7" }}
       bg="gray"
       mr={8}
     >
@@ -37,16 +37,15 @@ const Coins = ({ handleInput }) => (
     </Circle>
     <Circle
       onClick={() => handleInput(1.0)}
-      style={{ ...coinStyles, height: "38px", width: "32px", border: "4px solid #aa2" }}
-      bg="yellow"
-      color="gray"
+      style={{ ...coinStyles, height: "38px", width: "32px", fontSize: "12px", border: "4px solid #aa2" }}
+      bg="gray"
       mr={8}
     >
       $1
     </Circle>
     <Circle
       onClick={() => handleInput(2.0)}
-      style={{ ...coinStyles, height: "40px", width: "34px", border: "4px solid #aa2" }}
+      style={{ ...coinStyles, height: "40px", width: "34px", fontSize: "14px", border: "6px solid #aa2" }}
       bg="gray"
       mr={8}
     >
