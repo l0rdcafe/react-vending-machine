@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "http://l0rdcafe.github.io/react-vending-machine",
   "dependencies": {
+    "decimal.js": "^10.0.1",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",

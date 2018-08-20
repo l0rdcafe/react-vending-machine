@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Container } from "rebass";
 import { Machine } from "xstate";
+import { Decimal } from "decimal.js";
 import VendingMachine from "./vending-machine";
 
 const toggleMachine = Machine({
@@ -30,15 +31,21 @@ class App extends Component {
     super(props);
     this.state = {
       currAccount: 0.0,
-      products: [{ name: "Loca Kola", price: 1.5, color: "red" }, { name: "Boreo", price: 0.75 }],
+      products: [
+        { name: "Loca Kola", price: 1.5, color: "red" },
+        { name: "Boreo", price: 0.75, color: "purple" },
+        { name: "Wixt", price: 0.85, color: "brown" },
+        { name: "Reeso'z", price: 1.25, color: "orange" },
+        { name: "Limt", price: 1.95, color: "green" }
+      ],
       currState: toggleMachine.initialState,
-      owed: 0
+      owed: 0.0
     };
   }
   toggleState = (state, e, price) => {
     const { currState } = this.state;
     const nextState = toggleMachine.transition(currState.value, e);
-    const owed = price > 0 ? price : 0;
+    const owed = new Decimal(price);
     this.setState({ currState: nextState, owed });
   };
   handleInput = input => {
@@ -46,18 +53,18 @@ class App extends Component {
 
     this.setState(prevState => {
       let transitionState;
-      const nextAccount = prevState.currAccount + input;
-      if (nextAccount > owed) {
+      const nextAccount = new Decimal(prevState.currAccount).plus(new Decimal(input));
+      if (nextAccount.greaterThan(owed)) {
         transitionState = "CHANGE";
         const nextState = toggleMachine.transition(currState.value, transitionState);
-        const currAccount = owed - prevState.currAccount;
-        return { currState: nextState, currAccount, owed: 0 };
-      } else if (nextAccount === owed) {
+        const currAccount = nextAccount.minus(owed);
+        return { currState: nextState, currAccount, owed: 0.0 };
+      } else if (nextAccount.equals(owed)) {
         transitionState = "NO_CHANGE";
         const nextState = toggleMachine.transition(currState.value, transitionState);
-        return { currState: nextState, currAccount: 0, owed: 0 };
+        return { currState: nextState, currAccount: 0.0, owed: 0.0 };
       }
-      return { currAccount: prevState.currAccount + input };
+      return { currAccount: new Decimal(prevState.currAccount).plus(new Decimal(input)) };
     });
   };
   render() {
