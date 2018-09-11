@@ -43,10 +43,10 @@ class App extends Component {
     };
   }
   toggleState = (state, e, price) => {
-    const { currState } = this.state;
+    const { currState, currAccount } = this.state;
     const nextState = toggleMachine.transition(currState.value, e);
     const owed = new Decimal(price);
-    this.setState({ currState: nextState, owed });
+    this.setState({ currState: nextState, owed, currAccount: state === "DISPENSE_WITH_CHANGE" ? 0.0 : currAccount });
   };
   handleInput = input => {
     const { currState, owed } = this.state;

@@ -62,7 +62,7 @@ VendingMachine.propTypes = {
   products: PropTypes.arrayOf(
     PropTypes.shape({ name: PropTypes.string.isRequired, price: PropTypes.number.isRequired, color: PropTypes.string })
   ).isRequired,
-  state: PropTypes.object.isRequired,
+  state: PropTypes.isRequired,
   toggle: PropTypes.func.isRequired,
   owed: PropTypes.number,
   handleInput: PropTypes.func.isRequired
