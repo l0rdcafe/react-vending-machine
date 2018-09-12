@@ -10,17 +10,13 @@ const VendingMachine = ({ account, products, toggle, state, owed, handleInput })
   if (state.value === "IDLE") {
     heading = "Please choose a product";
   } else if (state.value === "ACCEPTING") {
-    const formattedOwed = owed.toString().split("").length < 4 ? `${owed}0` : owed;
-    heading = `Please input the amount of $${formattedOwed}`;
+    heading = `Please input the amount of $${owed.toFixed(2)}`;
   } else if (state.value === "DISPENSE_WITH_CHANGE") {
     const change = account.minus(owed);
-    const formattedChange = change.toString().split("").length < 4 ? `${change}0` : change;
-    heading = `Your change is $${formattedChange}`;
+    heading = `Your change is $${change.toFixed(2)}`;
   } else {
     heading = "You have no change. Please pick up your item.";
   }
-
-  const formattedAccount = account.toString().split("").length < 4 && account !== 0 ? `${account}0` : account;
 
   return (
     <Card borderRadius={8} bg="black">
@@ -33,7 +29,7 @@ const VendingMachine = ({ account, products, toggle, state, owed, handleInput })
         />
       )}
       <Heading width={10} bg="gray" color="white" pl={1}>
-        {`$${formattedAccount}`}
+        {`$${account.toFixed(2)}`}
       </Heading>
       <Subhead color="white" py={3} pl={1}>
         {heading}
